@@ -1,0 +1,295 @@
+@import './variables.scss'; /*引入公共样式方法*/
+@import './base.scss';
+@import './reset-mint.scss';
+@import './amimate.scss';
+@import './quickly.scss';
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-type {
+  height: 26px;
+  margin: inherit;
+  &.pl-20 {
+    padding-left: 20px;
+  }
+}
+
+/*文字省略号*/
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/*flex*/
+.insure-flexbox {
+  display: flex;
+}
+.insure-flexbox-content-center {
+  justify-content: center;
+}
+.insure-flexbox-content-between {
+  justify-content: space-between;
+}
+.insure-flexbox-align-center {
+  align-items: center;
+}
+
+.insure-flexbox-wrap {
+  flex-wrap: wrap;
+}
+
+.insure-flexbox-column {
+  flex-direction: column;
+}
+.insure-flexbox-item {
+  flex: 1;
+  min-width: 0;
+}
+.ins-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ins-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.ins-align {
+  display: flex;
+  align-items: center;
+}
+/*
+* text-overflow-ellipsis
+* @param:下边框
+*/
+.border-bottom-scaleY {
+  position: relative;
+  &:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #e5e5e5;
+    transform: scaleY(0.5);
+    position: absolute;
+    bottom: 0;
+    // left: 5%;
+  }
+} /*
+* @param:上边框
+*/
+.border-top-scaleY {
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    //background:color($h5,c9);
+    transform: scaleY(0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.sign-up-btn {
+  display: inline-block;
+  width: 90%;
+  border-radius: 57px;
+  height: 94px;
+  line-height: 94px;
+  background: linear-gradient(to left, #007aff, #22aefe);
+  color: #fff;
+  font-size: 40px;
+  &[disabled] {
+    background: #d5d5d5;
+    //opacity: .4;
+  }
+  &.del-btn {
+    color: #007aff;
+    background-color: #fff;
+    border: 1px solid #007aff;
+    margin-right: 20px;
+  }
+}
+
+.icon-type {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin: 0;
+}
+
+.insure-card {
+  margin-bottom: 30px;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 30px 25px;
+  overflow: hidden;
+}
+
+.insure-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  background: #f3f3f3;
+}
+
+/*颜色*/
+.oranges {
+  color: #ff5e03;
+}
+.grays {
+  color: #9d9d9d;
+}
+.blues {
+  color: #007aff;
+}
+
+.weights {
+  font-weight: bold;
+}
+
+// 微信，支付宝
+.icon-weChat {
+  @include icon(60, 58, '/icon/weChat.png');
+}
+.icon-Alipay {
+  @include icon(60, 58, '/icon/Alipay.png');
+}
+
+// 单选按钮样式 radio
+.ins-radio {
+  display: none; /* 隐藏自带的radio */
+}
+
+.out-checkbox-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: solid 1px #007aff;
+  .ins-checkbox-wrap {
+    /*position: relative;*/
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    overflow: hidden;
+    .ins-check {
+      display: block;
+      width: 25px;
+      height: 25px;
+      background: #007aff;
+    }
+  }
+  .ins-checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    background-color: transparent;
+    z-index: 20;
+    width: 240px;
+    height: 200%;
+  }
+}
+
+// modal 模态框
+.modal-explain {
+  font-size: 24px;
+  line-height: 48px;
+  .protocol-border {
+    line-height: 60px;
+    border-bottom: solid 1px #95cdfe;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+  .insure-btn-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 10px;
+  }
+  .insure-btn {
+    width: 50%;
+    border-radius: 28px;
+    height: 56px;
+    background: linear-gradient(to left, #007aff, #22aefe);
+    color: #fff;
+    font-size: 30px;
+    &[disabled] {
+      background: #d5d5d5;
+    }
+  }
+}
+
+// icon
+.insure-arrow-down {
+  @include icon(32, 18, 'icon/arrows-down.png');
+  transition: transform 0.25s linear;
+}
+
+.insure-arrow-up {
+  transform: rotate(180deg);
+  transition: transform 0.25s linear;
+}
+
+.arrows {
+  @include icon(32, 18, 'icon/arrows-down.png');
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  transition: transform 0.25s linear;
+}
+.arrowTrans {
+  transform: rotate(180deg);
+  transition: transform 0.25s linear;
+}
+
+
+
+.pannel-card {
+  // box-shadow: 0px 6px 29px 0px rgba(210, 210, 210, 0.48);
+  border-radius: 8px;
+  background-color: #fff;
+  .card-header {
+    margin: 0 30px;
+    max-height: 95px;
+    line-height: 95px;
+    border-bottom: 1px solid #e4e4e4;
+    .header-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333232;
+    }
+  }
+  .card-content {
+    padding: 0 30px;
+    line-height: 50px;
+  }
+}

@@ -1,0 +1,41 @@
+
+
+/* * icon
+* @param:icon 路径 */
+@mixin icon($width, $height, $url) {
+  display: inline-block;
+  width: $width + px;
+  height: $height + px;
+  background: url($baseUrl+$url) no-repeat center center/contain;
+}
+@mixin over-ellipsis {
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* * @param:width 文字超过指定百分比宽度显示省略号 */
+@mixin text-overflow-percent-ellipsis($width) {
+  @include over-ellipsis;
+  max-width: ($width);
+}
+/* * @param:width 文字超过指定最大宽度显示省略号 */
+@mixin text-overflow-max-ellipsis($width) {
+  @include over-ellipsis;
+  max-width: $width;
+}
+/* * text-overflow-ellipsis
+* @param:width 文字超过指定宽度显示省略号 */
+@mixin text-overflow-ellipsis($width) {
+  @include over-ellipsis;
+  width: $width;
+}
+/* * @description 多行文本省略号
+* @author ouyqx-691
+* @date 2017/09/12 */
+@mixin multi-line-exllipsis($line) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  overflow: hidden;
+}

@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+html {
+  height: 100%;
+  font-family: STHeiti, Microsoft YaHei, Helvetica, Arial, sans-serif;
+  background-color: #fff;
+}
+input,select{
+  font-family: STHeiti, Microsoft YaHei, Helvetica, Arial, sans-serif;
+}
+body {
+  // overflow-y: hidden;
+  // height: 100%;
+  min-height: 100%;
+  // font-size: 24px;
+  background-color: #f5f5f5;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dd,
+body {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+a {
+  color: #4f4f4f;
+  text-decoration: none;
+}
+
+input,
+button,
+select,
+textarea {
+  border: none;
+  outline: none;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+
+  &::-webkit-input-placeholder {
+    font-family: STHeiti, Microsoft YaHei, Helvetica, Arial, sans-serif;
+  }
+}
+button {
+  &[disabled] {
+    opacity: 0.9;
+    background-image: linear-gradient(
+      to right,
+      #d0d0d0 0%,
+      #a5a5a5 100%
+    ) !important;
+  }
+}
+i,
+em {
+  display: inline-block;
+  font-style: normal;
+}
+img {
+  max-width: 100%;
+  content: normal !important;
+}
