@@ -153,7 +153,7 @@
       <!-- 扣款 end -->
       <!-- 退款 start-->
       <div class="refund-pannel" v-if="dayInfo&&dayInfo.eventType==3">
-        <div class="pannel-header refund-steps flex">
+        <div class="pannel-header refund-steps flex"  v-if="isOverEleven">
           <div class="line-box">
             <div
               class="light-line"
@@ -193,7 +193,7 @@
           </div>-->
           <div class="item">
             <p>金额</p>
-            <p>{{dayInfo.money}}</p>
+            <p style='color:red'>{{dayInfo.money}}</p>
           </div>
 
           <template v-if="dayInfo.payStatus==0||dayInfo.payStatus==1">
@@ -220,15 +220,17 @@
         </div>
         <div class="pannel-footer">
           <template v-if="!canNotRefundPayStatus.includes(dayInfo.payStatus)">
-            <p class="description">说明：因运营商网络信号不稳定，导致系统于2018年5月20日00:00至24:00间无法查到您的设备，故今日做设备失效补扣款处理。</p>
+            <p class="description">因运营商网络信号不稳定，导致系统于<span style='color:red'>{{currentDateCancle}}</span>的00:00至24:00间无法查到您的设备，故做设备失联补扣款处理。</p>
 
-            <div class="btn-box">
+            <div class="btn-box" v-if="isOverEleven">
               <button class="sign-up-btn" @click="state.showRefundModal=true">申请退款</button>
             </div>
-            <p class="tips">TIPS：如您对扣款有疑问可申请退款</p>
+            <!-- <p class="tips" v-if="isOverEleven">说明：如您对扣款有疑问可申请退款</p> -->
+            
+            <p class="tips" v-if="isOverEleven">说明：请于<span style='color:red'>{{elevenBeforeDate}}</span>前发起申请退款，超出期限则不予退款。</p>
           </template>
 
-          <p class="description-entry">
+          <p class="description-entry" v-if="isOverEleven">
             <span @click="state.showRefundDescriptionModal=true">
               退款说明
               <img :src="$baseUrl+'icon/quo-faq.png'" alt align="center">
@@ -308,6 +310,9 @@ export default {
         showDeductionExplainModal: false, // 是否显示扣款说明
         showRefundDescriptionModal: false // 是否显示扣退款说明
       },
+      isOverEleven:true,//是否大于7天就不显示
+      elevenBeforeDate:'',//七天前日期
+      currentDateCancle:'',//当前申请日期
       canNotRefundPayStatus: [0, 1, 3, 4, 5], //  <!-- payStatus	Int	支付状态 0:未审核1:正在审核中 2:扣款成功 3:退款成功 4:审核不通过，退款失败 5:扣款失败 -->
       statistics: {
         payedDays: 0, // 已扣天数
@@ -329,6 +334,15 @@ export default {
     }
   },
   methods: {
+     getDateFromCurrentDate(fromDate,dayInterval){
+       //计算某个日期前几天日期 fromDate  需要传入的日期（YYYY-MM-DD）dayInterval小于0  前几天 大于0后几天
+      let curDate = new Date(Date.parse(fromDate.replace(/-/g,"/")));
+      curDate.setDate(curDate.getDate()+dayInterval);
+      let year = curDate.getFullYear();
+      let month = (curDate.getMonth()+1)<10?"0"+(curDate.getMonth()+1):(curDate.getMonth()+1);
+      let day = curDate.getDate()<10?"0"+curDate.getDate():curDate.getDate();
+      return year+"-"+month+"-"+day;
+      },
     /**
      * @description 获取车里列表并过滤出合格车辆
      */
@@ -418,11 +432,25 @@ export default {
      * @description 获取单日明细
      */
     getPaymentWithholdDetailInfo(day) {
-      //
       if (!day || !day.className) {
         return (this.dayInfo = null);
-      }
-
+      } 
+      if(day){
+        this.elevenBeforeDate=this.getDateFromCurrentDate(day.date,7);
+        this.currentDateCancle = day.date.split('/').join('-');
+        }
+        let dayInfo = day;
+        if(dayInfo&&dayInfo.eventType===3){
+        //this.getDateFromCurrentDate(fromDate,-7){elevenBeforeDate
+          let day1 = new Date(dayInfo.date);
+          let day2 =  Date.parse(new Date());
+          let dayCount = parseInt((day2 - day1) / (1000 * 60 * 60 * 24));
+          if(dayCount > 7){
+            this.isOverEleven = false;
+          }else{
+            this.isOverEleven = true;
+          }                                
+        }
       const params = {
         id: day.id,
         eventType: day.eventType,
@@ -443,7 +471,7 @@ export default {
     changeMonth(calendarDate) {
       let calendarDateTimestamp = new Date(calendarDate).getTime();
       let currentDateTimestamp = new Date().getTime();
-      var calendarYear = calendarDate.split("/")[0];
+      let calendarYear = calendarDate.split("/")[0];
       // 避免重复请求同年数据和未来数据
       if (
         this.calendarYear != calendarYear &&
@@ -461,10 +489,10 @@ export default {
       // 避免重复请求当天数据
       if (date != this.currentDate) {
         this.state.isSelectedOtherDay = this.currentDate == date ? false : true; // 选中其他日期后当前日期不再高亮
-
+       
         const dayInfo = this.monthInfo.filter(item => item.day === date)[0];
         this.currentDate = date;
-
+        
         this.getPaymentWithholdDetailInfo(dayInfo);
       }
     },
